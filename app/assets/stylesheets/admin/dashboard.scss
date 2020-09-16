@@ -1,0 +1,18 @@
+
+
+.panel-container {
+
+  display: flex;
+  justify-content: space-evenly;
+  .panel {
+    margin: 10px 2px;
+    min-width: 250px;
+    width: 45vw;
+
+
+    .panel-body {
+      font-weight: 900;
+      font-size: 1.5em;
+    }
+  }
+}
