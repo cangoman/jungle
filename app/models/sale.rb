@@ -1,5 +1,6 @@
 class Sale < ActiveRecord::Base
-
+  validates :name, :starts_on, :ends_on, presence: true
+  
   def self.active
     where("sales.starts_on <= ? AND sales.ends_on >= ?", Date.current, Date.current)
   end
