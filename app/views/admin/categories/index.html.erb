@@ -17,6 +17,12 @@
           <th>Number of items</th>
           <th></th>
         </tr>
+        <% @category_items.each do |category| %>
+          <tr>
+            <td><%= category.name %></td>
+            <td><%= category.product_count %></td>
+          </tr>
+        <% end %>
       </thead>
       <tbody>
         
@@ -24,5 +30,6 @@
     </table>
 
   </div>
+
 
 </section>
