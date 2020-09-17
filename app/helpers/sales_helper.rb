@@ -12,4 +12,7 @@ module SalesHelper
     price - (price * percent_off / 100)
   end
 
+
+
+
 end
