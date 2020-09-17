@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :sales, only: [:index, :new]
   end
 
-  get '/about'=> 'about#show'
+  get '/about' => 'about#show'
   
   #Registration and login routes
 

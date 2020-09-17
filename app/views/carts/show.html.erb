@@ -34,7 +34,11 @@
               TOTAL:
             </th>
             <th>
-              <%= humanized_money_with_symbol (cart_subtotal_cents / 100.0) %>
+              <% if active_sale? %>
+                  <%= humanized_money_with_symbol ((sale_price cart_subtotal_cents, active_sale.percent_off) / 100.0) %>
+                <% else %>  
+                  <%= humanized_money_with_symbol (cart_subtotal_cents / 100.0) %>
+                <% end %>
             </th>
           </tr>
         </tfoot>
