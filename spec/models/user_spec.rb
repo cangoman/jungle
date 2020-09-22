@@ -11,6 +11,7 @@ RSpec.describe User, type: :model do
     end
    
     describe "password and password confirmation fields" do 
+      
       it "should not create a user if pw and pw confirmation field do not match" do 
         @user = User.new first_name: 'fname', last_name: 'lname', email: 'test@test.com', password: '12345678', password_confirmation: '12345'
         @user.save
@@ -82,6 +83,48 @@ RSpec.describe User, type: :model do
       @user.save
 
       expect(@user.errors.full_messages).to include("Email can't be blank")
+    end
+
+  end
+
+  describe '.authenticate_with_credentials' do
+    it 'should return the user when both email and password are entered correctly' do
+      @user = User.new first_name: 'fname', last_name: 'lname', email: 'test@test.com', password: '12345678', password_confirmation: '12345678'
+      @user.save
+      user = User.authenticate_with_credentials('test@test.com', '12345678')
+
+      expect(user).to eql(@user)
+    end
+
+    it 'should return nil if the email does not exist' do
+      user = User.authenticate_with_credentials('test@test.com', '12345678')
+      expect(user).to be nil
+    end
+
+    it 'should return nil if the password is incorrect' do
+      @user = User.new first_name: 'fname', last_name: 'lname', email: 'test@test.com', password: '12345678', password_confirmation: '12345678'
+      @user.save
+
+      user = User.authenticate_with_credentials('test@test.com', '123')
+      expect(user).to be nil
+    end
+
+    it 'should return a user if the email has blank spaces around it' do
+      @user = User.new first_name: 'fname', last_name: 'lname', email: 'test@test.com', password: '12345678', password_confirmation: '12345678'
+      @user.save
+      user = User.authenticate_with_credentials('  test@test.com  ', '12345678')
+
+      expect(user).to eql(@user)
+
+    end
+
+    it 'should return a user if the email has incorrect capitalization' do
+      @user = User.new first_name: 'fname', last_name: 'lname', email: 'test@test.com', password: '12345678', password_confirmation: '12345678'
+      @user.save
+      user = User.authenticate_with_credentials('  TEST@test.com  ', '12345678')
+
+      expect(user).to eql(@user)
+
     end
 
   end
