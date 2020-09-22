@@ -24,9 +24,11 @@ RSpec.describe Product, type: :model do
     it "should not create a product without price" do
       @category = Category.new(name: 'test_category')
       @category.save
-      @product = Product.new(name: 'test_name', price: nil, quantity: 1, category: @category)
-      @product.save
+      @product = Product.new(name: 'test_name', quantity: 1, category: @category)
       
+
+      puts @product.price
+      expect(@product.save).to be false
       expect(@product.errors.full_messages).to include("Price can't be blank")
     end
 
@@ -43,6 +45,7 @@ RSpec.describe Product, type: :model do
       @product = Product.new(name: "test_name", price: 500, quantity: 1, category: nil)
       @product.save
 
+      
       expect(@product.errors.full_messages).to include("Category can't be blank")
     end
 
