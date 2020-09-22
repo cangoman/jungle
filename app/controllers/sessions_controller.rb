@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     email, password = params["/login"][:email], params["/login"][:password]
+    
   
     
     if user = User.authenticate_with_credentials(email, password)
